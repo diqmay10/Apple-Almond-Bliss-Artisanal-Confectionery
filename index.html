@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple Almond Bliss | Artisanal Confectionery</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --apple-red: #b32a2c;
+            --dark-brown: #3e2723;
+            --logo-cream: #fdf5e6;
+            --accent-gold: #c5a059;
+            --white: #ffffff;
+            --text-gray: #6d6d6d;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background-color: var(--logo-cream);
+            color: var(--dark-brown);
+            scroll-behavior: smooth;
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 5%;
+            background: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(62, 39, 35, 0.1);
+        }
+
+        header .logo img { height: 75px; }
+        nav ul { display: flex; list-style: none; gap: 25px; align-items: center; margin: 0; padding: 0; }
+        nav a { text-decoration: none; color: var(--dark-brown); font-weight: 600; font-size: 0.95rem; transition: 0.3s; }
+        nav a:hover, .cart-link:hover { color: var(--apple-red); cursor: pointer; }
+
+        /* --- Hero Section --- */
+        .hero { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 80px 10%; 
+            background: var(--logo-cream); 
+            min-height: 60vh;
+        }
+        .hero h1 { font-family: 'Cormorant Upright', serif; font-size: 4.5rem; margin: 0; line-height: 1; }
+        .btn-main {
+            background: var(--apple-red); color: white; padding: 15px 35px;
+            text-decoration: none; border-radius: 5px; font-weight: bold;
+            display: inline-block; margin-top: 25px; transition: 0.3s;
+        }
+        .btn-main:hover { background: var(--dark-brown); transform: translateY(-3px); }
+        .hero-img img { max-width: 450px; width: 100%; }
+
+        /* --- MVV Section --- */
+        .section-mvv { padding: 80px 10%; background: var(--white); }
+        .mvv-container { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 30px; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+        .card {
+            background: var(--white);
+            padding: 40px;
+            text-align: center;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(62, 39, 35, 0.05);
+            border-top: 5px solid var(--accent-gold);
+            transition: 0.3s;
+        }
+        .card i { font-size: 3rem; color: var(--apple-red); margin-bottom: 20px; }
+
+        /* --- Product Collection --- */
+        .products { padding: 80px 10%; text-align: center; }
+        .section-title { font-family: 'Cormorant Upright', serif; font-size: 3.5rem; margin-bottom: 40px; }
+        .grid-products { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; }
+        .item { background: white; padding: 25px; border-radius: 15px; border: 1px solid #eee; transition: 0.3s; }
+        .item img { width: 100%; border-radius: 10px; height: 180px; object-fit: cover; margin-bottom: 15px; }
+        .price { font-size: 1.8rem; font-weight: bold; color: var(--apple-red); margin: 10px 0; }
+        .btn-add { 
+            background: var(--dark-brown); color: white; border: none; padding: 12px; 
+            border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s;
+        }
+        .btn-add:hover { background: var(--apple-red); }
+
+        /* --- Cart View --- */
+        #cart-view { 
+            display: none; 
+            min-height: 85vh; 
+            background-color: var(--logo-cream); 
+            padding: 60px 10%; 
+        }
+        .checkout-container {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+        @media (max-width: 768px) {
+            .checkout-container { grid-template-columns: 1fr; }
+            .hero { flex-direction: column; text-align: center; }
+        }
+
+        .btn-back { background: none; border: none; font-weight: 600; cursor: pointer; color: var(--dark-brown); margin-bottom: 20px; }
+        .cart-table { width: 100%; border-collapse: collapse; }
+        .cart-table td { padding: 15px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+
+        .customer-info-card {
+            background: var(--white); 
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid var(--dark-brown);
+        }
+        .customer-info-card h3 { color: var(--apple-red); font-family: 'Cormorant Upright', serif; margin-top: 0; }
+        .input-group { margin-bottom: 15px; }
+        .input-group input {
+            width: 100%; padding: 12px; border: 1px solid var(--dark-brown);
+            border-radius: 8px; box-sizing: border-box; background-color: var(--logo-cream);
+        }
+
+        .btn-whatsapp { 
+            background: #25d366; color: white; border: none; padding: 15px; 
+            border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; 
+            display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s;
+        }
+
+        /* --- Chatbox --- */
+        #chat-wrapper { position: fixed; bottom: 20px; right: 20px; z-index: 2000; }
+        #chat-btn { 
+            width: 60px; height: 60px; background: var(--apple-red); color: white; 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+            cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        #chat-box { 
+            width: 300px; height: 400px; background: white; position: absolute; bottom: 80px; right: 0; 
+            border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: none; flex-direction: column; overflow: hidden;
+        }
+        .chat-header { background: var(--dark-brown); color: white; padding: 15px; font-weight: bold; }
+        #chat-messages { flex: 1; padding: 15px; overflow-y: auto; font-size: 0.85rem; }
+        .chat-input-area { display: flex; border-top: 1px solid #eee; }
+        #chat-input { border: none; padding: 15px; flex: 1; outline: none; }
+        #chat-send { background: var(--apple-red); color: white; border: none; padding: 0 15px; cursor: pointer; }
+
+        footer { text-align: center; padding: 40px; background: var(--dark-brown); color: var(--logo-cream); }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo"><img src="logo_-removebg-preview.png" alt="Logo"></div>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="showHome()">Home</a></li>
+                <li><a href="#about" onclick="showHome()">Our Story</a></li>
+                <li><a href="#menu" onclick="showHome()">Sweets</a></li>
+                <li class="cart-link" onclick="showCart()">
+                    <i class="fas fa-shopping-cart"></i> (<span id="cart-count">0</span>)
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>Apple Almond Bliss</h1>
+                <p>Naturally sweet, irresistibly apple.</p>
+                <a href="#menu" class="btn-main">Explore Menu</a>
+            </div>
+            <div class="hero-img"><img src="logo_-removebg-preview.png" alt="Sweets"></div>
+        </section>
+
+        <section id="about" class="section-mvv">
+            <div class="mvv-container">
+                <div class="card">
+                    <i class="fas fa-bullseye"></i>
+                    <h3>Mission</h3>
+                    <p>To craft high-quality sweet apple products that bring joy and flavor to every customer.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-eye"></i>
+                    <h3>Vision</h3>
+                    <p>To be a recognized brand in fruit products, known for innovation and outstanding taste.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-heart"></i>
+                    <h3>Values</h3>
+                    <p>Artisanal craftsmanship, quality, and a passion for customer happiness.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="menu" class="products">
+            <h2 class="section-title">Our Sweet Collection</h2>
+            <div class="grid-products">
+                <div class="item">
+                    <img src="Single_portion.png" alt="Apple Sweet">
+                    <h3>Apple Sweet</h3>
+                    <p class="price">RD$100</p>
+                    <button class="btn-add" onclick="addToCart('Apple Sweet', 100)">Add to Cart</button>
+                </div>
+                <div class="item">
+                    <img src="Almond-candy.png" alt="Almond Sweet">
+                    <h3>Almond Sweet</h3>
+                    <p class="price">RD$300</p>
+                    <button class="btn-add" onclick="addToCart('Almond Sweet', 300)">Add to Cart</button>
+                </div>
+                <div class="item">
+                    <img src="Coconut-sweet.png" alt="Coconut Sweet">
+                    <h3>Coconut Sweet</h3>
+                    <p class="price">RD$350</p>
+                    <button class="btn-add" onclick="addToCart('Coconut Sweet', 350)">Add to Cart</button>
+                </div>
+                <div class="item">
+                    <img src="Family-pack.png" alt="Family Pack">
+                    <h3>Family Pack</h3>
+                    <p class="price">RD$500</p>
+                    <button class="btn-add" onclick="addToCart('Family Pack', 500)">Add to Cart</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section id="cart-view">
+        <button class="btn-back" onclick="showHome()"><i class="fas fa-arrow-left"></i> Back to Shop</button>
+        <h2 style="font-family: 'Cormorant Upright', serif; font-size: 3rem;">Checkout Details</h2>
+        
+        <div class="checkout-container">
+            <div class="selection-list">
+                <table class="cart-table">
+                    <tbody id="cart-items-body"></tbody>
+                </table>
+                <div style="font-size: 2rem; font-weight: bold; margin-top: 20px;">Total: RD$<span id="cart-total-price">0</span></div>
+            </div>
+
+            <div class="customer-info-card">
+                <h3>Customer Information</h3>
+                <div class="input-group"><input type="text" id="cust-name" placeholder="Full Name"></div>
+                <div class="input-group"><input type="text" id="cust-phone" placeholder="Phone Number"></div>
+                <button class="btn-whatsapp" onclick="sendOrder()"><i class="fab fa-whatsapp"></i> Order via WhatsApp</button>
+            </div>
+        </div>
+    </section>
+
+    <div id="chat-wrapper">
+        <div id="chat-box">
+            <div class="chat-header">Bliss Bot Assistant ✨</div>
+            <div id="chat-messages"><p><b>Bot:</b> Hello! How can I assist you today?</p></div>
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Type here...">
+                <button id="chat-send"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+        <div id="chat-btn" onclick="toggleChat()"><i class="fas fa-comment"></i></div>
+    </div>
+
+    <footer><p>&copy; 2026 Apple Almond Bliss.</p></footer>
+
+    <script>
+        let cart = [];
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            updateCartCount();
+            alert(`${name} added!`);
+        }
+
+        function updateCartCount() {
+            document.getElementById('cart-count').innerText = cart.length;
+        }
+
+        function showCart() {
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('cart-view').style.display = 'block';
+            renderCart();
+            window.scrollTo(0,0);
+        }
+
+        function showHome() {
+            document.getElementById('main-content').style.display = 'block';
+            document.getElementById('cart-view').style.display = 'none';
+        }
+
+        function renderCart() {
+            const body = document.getElementById('cart-items-body');
+            body.innerHTML = "";
+            let total = 0;
+            
+            if(cart.length === 0) {
+                body.innerHTML = "<tr><td>Your cart is empty</td></tr>";
+                document.getElementById('cart-total-price').innerText = "0";
+                return;
+            }
+
+            cart.forEach((item, i) => {
+                total += item.price;
+                body.innerHTML += `
+                    <tr>
+                        <td>${item.name}</td>
+                        <td style="text-align:right;">RD$${item.price}</td>
+                        <td style="text-align:right;">
+                            <button onclick="removeItem(${i})" style="color:red; border:none; background:none; cursor:pointer;">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>`;
+            });
+            document.getElementById('cart-total-price').innerText = total;
+        }
+
+        function removeItem(i) {
+            cart.splice(i, 1);
+            updateCartCount();
+            renderCart();
+        }
+
+        function sendOrder() {
+            const name = document.getElementById('cust-name').value;
+            const phone = document.getElementById('cust-phone').value;
+            const total = document.getElementById('cart-total-price').innerText;
+
+            if(!name || !phone || cart.length === 0) {
+                return alert("Please fill your info and add items to the cart!");
+            }
+
+            let msg = `*Order from ${name}* (%0A Phone: ${phone})%0A%0A`;
+            cart.forEach(item => msg += `- ${item.name} (RD$${item.price})%0A`);
+            msg += `%0A*Total: RD$${total}*`;
+            
+            window.open(`https://wa.me/18094422212?text=${msg}`, '_blank');
+        }
+
+        function toggleChat() {
+            const box = document.getElementById('chat-box');
+            box.style.display = (box.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        // Chat logic
+        document.getElementById('chat-send').addEventListener('click', () => {
+            const input = document.getElementById('chat-input');
+            const msg = input.value.trim().toLowerCase();
+            if(!msg) return;
+
+            const display = document.getElementById('chat-messages');
+            display.innerHTML += `<p><strong>You:</strong> ${input.value}</p>`;
+            
+            let response = "I can help with the menu or order details!";
+            if(msg.includes("hi") || msg.includes("hello")) response = "Hello! Ready for something sweet?";
+            else if(msg.includes("price")) response = "Items start at RD$100. Check our collection!";
+            
+            setTimeout(() => {
+                display.innerHTML += `<p><strong>Bot:</strong> ${response}</p>`;
+                display.scrollTop = display.scrollHeight;
+            }, 500);
+            input.value = "";
+        });
+    </script>
+</body>
+</html>
